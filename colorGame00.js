@@ -29,6 +29,12 @@ const Square = ({ takeTurn, id }) => {
 const Board = () => {
   const [player,    setPlayer]    = React.useState(1);  // 1st player is 1 (X)
   const [gameState, setGameState] = React.useState([]);
+  const [random,    setRandom]    = React.useState(0)
+
+  const reRender = () => {
+    console.log('In reRender()')
+    setRandom(Math.random())
+  }
 
   const takeTurn = (id) => {
     setGameState([...gameState, { id: id, player: player }]);
@@ -45,6 +51,9 @@ const Board = () => {
     <div className="game-board">
       <div className="grid-row">
         { renderSquare(0) } { renderSquare(1) } { renderSquare(2) }
+      </div>
+      <div id="info">
+        <button onClick={reRender}>Re-render</button>
       </div>
     </div>
   );
