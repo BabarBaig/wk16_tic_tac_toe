@@ -1,46 +1,61 @@
-const Square = ({id, player}) => {
-  const [color, setColor] = React.useState("lightblue")
-  const pallette = ['pink', 'lightgreen', 'lightblue', 'black']
+const Square = ({ takeTurn, id }) => {
+  // id = square's number
+  // filled = square has been filled
+  // tik = symbol in square (same as player)
+  // takeTurn() tells parent (Board) this square is filled
+  const mark = ['O', 'X', '+']
+  const [filled,  setFilled]  = React.useState(false)
+  const [tik,     setTik]     = React.useState(2) // initially tik = '+'
+  const [mounted, setMounted] = React.useState(true);
 
-  const getRandomColor = () => pallette[Math.floor(Math.random()*pallette.length)]
+  const toggle = () => setMounted(!mounted)
 
-  React.useEffect (() => {
-    console.log(`Render ${id}`)
-    return () => console.log(`unmounting Square ${id}`)
-  })
+  if (!mounted) return null
 
   return(
-    <button onClick = { e => {
-      console.log(`I'm square ${id}`)
-      setColor(getRandomColor())
-      e.target.style.background = color}
-    }>
-      {/* <h1>{id}</h1> */}
-      <h1>{player}</h1>
-    </button>)
+    <button
+      id={`square-button-${id}`}
+      onClick = { () => {
+        setTik(takeTurn(id))  // call board for planer, and set it here
+        setFilled(true)
+        toggle()              // trigger on buttonClick!
+      }}
+    >
+      <h1>{ mark[tik] }</h1>
+    </button>
+  )
 }
 
 const Board = () => {
-  const [player,  setPlayer]  = React.useState(1);
-  const [mounted, setMounted] = React.useState(true);
-  let status = `Player ${player}`;
+  const [player,    setPlayer]    = React.useState(1);  // 1st player is 1 (X)
+  const [gameState, setGameState] = React.useState([]);
 
-  const toggle = () => {setMounted(!mounted)}
-  const renderSquare = (i) => {return <Square id={i} player={player}></Square>}
+  const takeTurn = (id) => {
+    setGameState([...gameState, { id: id, player: player }]);
+    setPlayer((player + 1) % 2)
+    return player
+  }
 
-  return (    // onClick onFocus onChange can be captured/responded
+  const renderSquare = (i) => {
+    // use props to pass callback  function to child (Square)
+    return <Square takeTurn={takeTurn} id={i}></Square>;
+  }
+
+  return (
     <div className="game-board">
       <div className="grid-row">
-        { mounted && renderSquare(0) }
-        { mounted && renderSquare(1) }
-        { mounted && renderSquare(2) }
-      </div>
-      <div id="info">
-        <button onClick={toggle}>Show/Hide Row</button>
-        <h1>Turn of player {player}</h1>
+        { renderSquare(0) } { renderSquare(1) } { renderSquare(2) }
       </div>
     </div>
   );
 };
 
-ReactDOM.render(<Board />, document.getElementById("root"));
+const Game = () => {
+  return (
+    <div className="game">
+      <Board></Board>
+    </div>
+  )
+}
+
+ReactDOM.render(<Game />, document.getElementById('root'));
