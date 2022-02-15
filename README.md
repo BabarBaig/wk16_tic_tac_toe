@@ -9,6 +9,7 @@ Tic-Tac-Toe Exercise With React, you’ll manage state across parent and child c
 1. clone this code to local computer
 2. Download http-server (if necessary)
 3. Open a bash shell or equivalent, cd to base directory of this repo and run:
+
     http-server
 
 ## Define the React component lifecycle
