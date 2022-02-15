@@ -8,11 +8,10 @@ This Tic-Tac-Toe game is a coding excersise that uses React.js to manage state a
 
 1. clone this repo to local computer
 2. Download http-server (if necessary)
-
-4. Open a bash shell or equivalent, cd to base directory of this repo and run command:
+3. Open a bash shell or equivalent, cd to base directory of this repo and run command:
 
     ```http-server```
-5. This will open a browser loaded with the game
+4. This will open a browser loaded with the game
 
 ## Roadmap of Future Improvements
 
