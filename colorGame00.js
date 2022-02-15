@@ -45,9 +45,11 @@ const Board = () => {
   const [player, setPlayer]  = React.useState(1);  // 1st player is 1 (X)
   const [state,  setState]   = React.useState(Array(9).fill(null));
   const [random, setRandom]  = React.useState(0)
+  const OorX = ['O', 'X']
   let status = `Player ${player}`   // continually updated during the game
   let winner = checkWinner(state)
-  if (winner != null)   status = `Player ${winner} wins!`
+  if (winner != null)   status = `Player ${OorX[winner]} wins!`
+  else                  status = 'No Winner Yet'
 
   const newState = squareId => {
     let playerCur = player
@@ -109,6 +111,7 @@ const Board = () => {
       <div id="info">
         <button>Show/Hide Row</button>
         <button onClick={reRender}>Re-render</button>
+        <h1>Next Player: {OorX[player]}</h1>
         <h1>{status}</h1>
       </div>
     </div>
