@@ -11,7 +11,7 @@ This Tic-Tac-Toe game is a coding excersise that uses React.js to manage state a
 3. Open a bash shell or equivalent, cd to base directory of this repo and run command:
 
     ```http-server```
-4. This will open a browser loaded with the game
+4. This will open the default browser loaded with the game
 
 ## Roadmap of Future Improvements
 
